@@ -1,0 +1,14 @@
+name: hello
+image: registry.cloud.okteto.net/faas-rberrelleza/hello:okteto
+build:
+  context: .
+  dockerfile: dev.Dockerfile
+command:
+- fwatchdog
+workdir: /home/app
+mountpath: /home/app/function
+environment:
+  - fprocess=nodemon index.js
+forward:
+    - 9229:9229
+

@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: https://openfaas-ingress-faas-rberrelleza.cloud.okteto.net
+functions:
+  hello:
+    lang: node12
+    handler: ./hello
+    image: registry.cloud.okteto.net/faas-rberrelleza/hello:latest
+
