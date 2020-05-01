@@ -7,4 +7,6 @@ functions:
     lang: node12
     handler: ./hello
     image: registry.cloud.okteto.net/faas-rberrelleza/hello:latest
+    secrets:
+      - mongodb
 
