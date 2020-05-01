@@ -1,6 +1,6 @@
 # Develop you Node functions with OpenFaaS and Okteto
 
-In this post we'll talk about how to build a node-based function with OpenFaaS and Okteto.
+In this post we'll talk about how to build a node-based function with [OpenFaaS](https://www.openfaas.com/) and Okteto.
 
 ## Prerequisites
 
