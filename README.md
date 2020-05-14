@@ -256,30 +256,36 @@ Finally, let's implement our read / write logic. To keep things simple, we'll as
 ```javascript
 'use strict'
 var fs = require('fs');
-const MongoClient = require('mongodb').MongoClient;
+const mongodb = require('mongodb');
 const mongoSecret = fs.readFileSync('/var/openfaas/secrets/mongodb-password', 'utf8');
-const client = new MongoClient(`mongodb://root:${mongoSecret}@mongodb:27017`);  
+const db = 'okteto' // CHANGE! database name accordingly
+const username = 'okteto' // CHANGE! username accordingly
+const namespace = `genievot`// CHANGE! namespace name accordingly
+const client = mongodb.MongoClient;
 
 module.exports = async (event, context) => {
-  const c = await client.connect();
-  
-  if (event.method == 'POST'){
-    let r = await c.db('okteto').collection('attendees').insertOne({'githubID': event.body.githubID});
+  // CHANGE! url accordingly
+  const c = await client.connect(`mongodb://mongodb.${namespace}.svc.cluster.local:27017/${db}`,
+    { user: username, password: mongoSecret, useUnifiedTopology: true });
+
+  if (event.method == 'POST') {
+    console.log(event.body)
+    let r = await c.db(db).collection('attendees').insertOne({ 'githubID': event.body });
     if (1 == r.insertedCount) {
       return context
-      .status(204);
+        .status(204);
     } else {
       return context
-      .status(500);
+        .status(500);
     }
-  } else if (event.method == 'GET'){
+  } else if (event.method == 'GET') {
     const result = await c.db('okteto').collection('attendees').find().toArray();
     const list = [];
-    result.forEach(a => list.push({'githubID': a.githubID}));
+    result.forEach(a => list.push({ 'githubID': a.githubID }));
     return context
-    .status(200)
-    .succeed(result)
-  }  else {
+      .status(200)
+      .succeed(result)
+  } else {
     return context.status(405);
   }
 }
