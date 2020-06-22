@@ -132,7 +132,7 @@ name: hello
 image: registry.cloud.okteto.net/{YOUR_GITHUBID}/hello:dev
 command:
 - fwatchdog
-workdir: /home/app/function
+workdir: /home/app/
 environment:
   - fprocess=nodemon /home/app/index.js
 ```
