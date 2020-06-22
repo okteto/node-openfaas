@@ -142,13 +142,19 @@ This file will tell `okteto` to convert your `hello` function into a development
 You'll notice that the value of `image` is different that the one on `hello.yml`. This is because we are going to use a slightly [different image](hello/Dockerfile) than in prod to install the dev tools we need (nodemon, in this case). Build it via the `okteto build` command:
 
 ```
-$ cd hello
-$ okteto build -t registry.cloud.okteto.net/$GITHUBID/hello:dev -f dev.Dockerfile --build-arg NAMESPACE=$GITHUBID .
+$ okteto build -t registry.cloud.okteto.net/$GITHUBID/hello:dev --build-arg NAMESPACE=$GITHUBID .
 ```
 
-Start your development environment by running `okteto up`:
+Navigate to the `hello` folder:
 
 ```console
+$ cd hello
+```
+
+And run `okteto up` to launch your development environment:
+
+```console
+$ cd hello
 $ okteto up
 ```
 

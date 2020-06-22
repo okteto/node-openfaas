@@ -1,12 +1,12 @@
 version: 1.0
 provider:
   name: openfaas
-  gateway: https://openfaas-ingress-faas-rberrelleza.cloud.okteto.net
+  gateway: https://openfaas-ingress-${GITHUBID}.cloud.okteto.net
 functions:
   hello:
     lang: node12
     handler: ./hello
-    image: registry.cloud.okteto.net/faas-rberrelleza/hello:latest
+    image: registry.cloud.okteto.net/${GITHUBID}/hello:latest
     secrets:
       - mongodb
 
